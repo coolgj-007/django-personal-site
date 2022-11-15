@@ -1,0 +1,31 @@
+{% extends "portfolio/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h2 id="blogtitle" class="font-weight-bold text-center">Blog</h2>
+
+<h4 class="text-center mb-5">GJ has written {{ blogs.count }} blog{{ blogs.count|pluralize }}</h4>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+{% for blog in blogs %}
+  <div class="col">
+    <div class="card h-100">
+      <!--<img src="..." class="card-img-top" alt="...">-->
+      <div class="card-body">
+        <a href="{% url 'blog:detail' blog.id %}">
+        <h4 class="card-title">{{ blog.title }}</h4>
+        </a>
+        <p class="card-text">{{ blog.description|striptags|truncatechars:100 }}</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated {{ blog.date|date:'M d Y'|upper }}</small>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+
+{% endblock %}
